@@ -21,8 +21,6 @@ spec:
       - env: []
         image: grafana/grafana:7.3.4
         name: grafana
-        args: 
-        - echo "nameserver 8.8.8.8" >>/etc/resolv.conf
         ports:
         - containerPort: 3000
           name: http
