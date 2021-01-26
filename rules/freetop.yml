@@ -1,0 +1,12 @@
+groups:
+- name: exports.rules
+  rules:
+  - alert: 内存使用率
+    expr: (node_memory_MemTotal_bytes - node_memory_MemFree_bytes - node_memory_Buffers_bytes - node_memory_Cached_bytes) / (node_memory_MemTotal_bytes )* 100 > 85
+    for: 15s
+    labels:
+      severity: Warning
+    annotations:
+      summary: "{{ $labels.instance }} 当前内存使用率已高于85%"
+      description: "{{ $labels.instance }} 应用内存使用率过高，当前使用率为 {{ $value }}，请相关运维人员介入"
+      recoverymessage: "实例 {{ $labels.instance }} 已恢复正常，当前内存使用率为 {{ $value }}"

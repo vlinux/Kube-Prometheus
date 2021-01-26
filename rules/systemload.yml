@@ -1,0 +1,12 @@
+groups:
+- name: exports.rules
+  rules:
+  - alert: 系统负载
+    expr: node_load1>0.85
+    for: 15s
+    labels:
+      severity: Warning
+    annotations:
+      summary: "节点 {{ $labels.instance }} 负载预警"
+      description: "节点 {{ $labels.instance }} 负载已达 {{ $value }} ，此信息为预警信息"
+      recoverymessage: "节点 {{ $labels.instance }} 的负载已经恢复正常，当前负载为{{ $value }}"

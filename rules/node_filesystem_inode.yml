@@ -1,0 +1,12 @@
+groups:
+- name: exports.rules
+  rules:
+  - alert: 主机inode异常
+    expr: node_filesystem_files_free{mountpoint ="/rootfs"} / node_filesystem_files{mountpoint="/rootfs"} * 100 < 10 and ON (instance, device, mountpoint) node_filesystem_readonly{mountpoint="/rootfs"} == 0
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "主机inode溢出，还剩10% (instance {{ $labels.instance }})"
+      description: "磁盘inode溢出,可用(< 10% left)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+      recoverymessage: "节点 {{ $labels.instance }} 告警已经恢复正常，当前值为{{ $value }}"

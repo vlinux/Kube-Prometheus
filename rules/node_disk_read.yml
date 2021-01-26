@@ -1,0 +1,12 @@
+groups:
+- name: exports.rules
+  rules:
+  - alert: 主机异常磁盘读取
+    expr: sum by (instance) (rate(node_disk_read_bytes_total[2m])) / 1024 / 1024 > 50
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "主机磁盘读取速率异常 (instance {{ $labels.instance }})"
+      description: "磁盘可能正在读取大量数据 (> 50 MB/s)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+      recoverymessage: "节点 {{ $labels.instance }} 告警已经恢复正常，当前值为{{ $value }}"

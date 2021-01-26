@@ -1,0 +1,12 @@
+groups:
+- name: exports.rules
+  rules:
+  - alert: 容器CPU使用率
+    expr: (sum(rate(container_cpu_usage_seconds_total[3m])) BY (instance, name) * 100) > 80
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "容器CPU使用率过高 (instance {{ $labels.instance }})"
+      description: "容器CPU占用率过高 80% \n VALUE = {{ $value }}\n  LABELS: {{ $labels }}\n"
+      recoverymessage: "节点 {{ $labels.instance }} 告警已经恢复正常，当前值为{{ $value }}"

@@ -1,0 +1,12 @@
+groups:
+- name: exports.rules
+  rules:
+  - alert: 容器卷使用情况
+    expr: (1 - (sum(container_fs_inodes_free) BY (instance) / sum(container_fs_inodes_total) BY (instance)) * 100) > 80
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "容器卷使用情况 (instance {{ $labels.instance }})"
+      description: "容器卷使用率已高于 80%\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+      recoverymessage: "节点 {{ $labels.instance }} 告警已经恢复正常，当前值为{{ $value }}"

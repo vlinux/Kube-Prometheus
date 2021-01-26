@@ -1,0 +1,12 @@
+groups:
+- name: exports.rules
+  rules:
+  - alert: 容器消失
+    expr: time() - container_last_seen > 60
+    for: 0m
+    labels:
+      severity: warning
+    annotations:
+      summary: "容器被删除 (instance {{ $labels.instance }})"
+      description: "一个容器被删除\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+      recoverymessage: "节点 {{ $labels.instance }} 告警已经恢复正常，当前值为{{ $value }}"

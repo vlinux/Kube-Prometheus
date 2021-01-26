@@ -1,0 +1,12 @@
+groups:
+- name: exports.rules
+  rules:
+  - alert: 主机接口发送数据异常 
+    expr: sum by (instance) (rate(node_network_receive_bytes_total[2m])) / 1024 / 1024 > 100
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "主机网络吞吐量(发送数据速率)为  (instance {{ $labels.instance }})"
+      description: "主机网络接口发送的数据可能过多 (> 100 MB/s)\n  当前值 = {{ $value }}\n  LABELS: {{ $labels }}"
+      recoverymessage: "节点 {{ $labels.instance }} 告警已经恢复正常，当前值为{{ $value }}"

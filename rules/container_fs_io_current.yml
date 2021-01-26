@@ -1,0 +1,12 @@
+groups:
+- name: exports.rules
+  rules:
+  - alert: 容器卷IO使用情况
+    expr: (sum(container_fs_io_current) BY (instance, name) * 100) > 80
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "容器卷IO使用情况 (instance {{ $labels.instance }})"
+      description: "容器卷IO使用过高 80%\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+      recoverymessage: "节点 {{ $labels.instance }} 告警已经恢复正常，当前值为{{ $value }}"

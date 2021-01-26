@@ -1,0 +1,12 @@
+groups:
+- name: exports.rules
+  rules:
+  - alert: 容器内存使用率
+    expr: (sum(container_memory_working_set_bytes) BY (instance, name) / sum(container_spec_memory_limit_bytes > 0) BY (instance, name) * 100) > 300
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "容器内存使用率过高 (instance {{ $labels.instance }})"
+      description: "容器内存使用率过高 80%\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+      recoverymessage: "节点 {{ $labels.instance }} 告警已经恢复正常，当前值为{{ $value }}"
