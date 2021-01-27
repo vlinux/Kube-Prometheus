@@ -6,6 +6,7 @@ groups:
     for: 2m
     labels:
       severity: warning
+      level: 3
     annotations:
       summary: "容器卷使用情况 (instance {{ $labels.instance }})"
       description: "容器卷使用率已高于 80%\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"

@@ -6,6 +6,7 @@ groups:
     for: 2m
     labels:
       severity: warning
+      level: 3
     annotations:
       summary: "主机磁盘读取速率异常 (instance {{ $labels.instance }})"
       description: "磁盘可能正在读取大量数据 (> 50 MB/s)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"

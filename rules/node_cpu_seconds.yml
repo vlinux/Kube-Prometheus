@@ -6,6 +6,7 @@ groups:
     for: 0m
     labels:
       severity: warning
+      level: 3
     annotations:
       summary: "主机CPU负载过高 (instance {{ $labels.instance }})"
       description: "CPU负载 > 80%\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"

@@ -6,6 +6,7 @@ groups:
     for: 2m
     labels:
       severity: warning
+      level: 3
     annotations:
       summary: "主机网络吞吐量(接收数据速率)为  (instance {{ $labels.instance }})"
       description: "主机网络接口接收的数据可能过多 (> 100 MB/s)\n  当前值 = {{ $value }}\n  LABELS: {{ $labels }}"

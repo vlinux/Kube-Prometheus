@@ -6,6 +6,7 @@ groups:
     for: 2m
     labels:
       severity: warning
+      level: 3
     annotations:
       summary: "磁盘空间不足15% (instance {{ $labels.instance }})"
       description: "磁盘空间不足 (< 15% left)\n  当前空间剩余 = {{ $value }}\n  LABELS: {{ $labels }}"

@@ -6,6 +6,7 @@ groups:
     for: 2m
     labels:
       severity: warning
+      level: 3
     annotations:
       summary: "容器CPU使用率过高 (instance {{ $labels.instance }})"
       description: "容器CPU占用率过高 80% \n VALUE = {{ $value }}\n  LABELS: {{ $labels }}\n"

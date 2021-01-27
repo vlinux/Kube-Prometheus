@@ -5,7 +5,8 @@ groups:
     expr: (1 - (node_memory_SwapFree_bytes / node_memory_SwapTotal_bytes)) * 100 > 80
     for: 2m
     labels:
-      severity: warning
+      severity: ERROR
+      level: 4
     annotations:
       summary: "主机交换空间正在被填满 (instance {{ $labels.instance }})"
       description: "Swap正在填充 (>80%)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"

@@ -5,7 +5,8 @@ groups:
     expr: node_filesystem_files_free{mountpoint ="/rootfs"} / node_filesystem_files{mountpoint="/rootfs"} * 100 < 10 and ON (instance, device, mountpoint) node_filesystem_readonly{mountpoint="/rootfs"} == 0
     for: 2m
     labels:
-      severity: warning
+      severity: ERROR
+      level: 4
     annotations:
       summary: "主机索引节点将在24小时内被填满 (instance {{ $labels.instance }})"
       description: "按照当前的写速度，预计文件系统将在未来24小时内耗尽索引节点\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"

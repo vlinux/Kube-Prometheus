@@ -5,7 +5,8 @@ groups:
     expr: (node_filesystem_avail_bytes * 100) / node_filesystem_size_bytes < 10 and ON (instance, device, mountpoint) predict_linear(node_filesystem_avail_bytes{fstype!~"tmpfs"}[1h], 24 * 3600) < 0 and ON (instance, device, mountpoint) node_filesystem_readonly == 0
     for: 2m
     labels:
-      severity: Warnning
+      severity: ERROR
+      level: 4
     annotations:
       summary: "预计24小时后磁盘空间存满 (instance {{ $labels.instance }})"
       description: "磁盘将会在24小时后被写满\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"

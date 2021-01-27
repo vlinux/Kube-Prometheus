@@ -5,7 +5,8 @@ groups:
     expr: time() - container_last_seen > 60
     for: 0m
     labels:
-      severity: warning
+      severity: ERROR
+      level: 4
     annotations:
       summary: "容器被删除 (instance {{ $labels.instance }})"
       description: "一个容器被删除\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"

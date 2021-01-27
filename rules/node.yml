@@ -6,6 +6,7 @@ groups:
     for: 1m
     labels:
       severity: ERROR
+      level: 4
     annotations:
       summary: "实例 {{ $labels.instance }} 监控信息告警"
       description: "实例 {{ $labels.instance }} Job 名为 {{ $labels.job }} 已经丢失信息长达一分钟,请相关运维介入"

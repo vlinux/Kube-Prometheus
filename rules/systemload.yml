@@ -2,10 +2,11 @@ groups:
 - name: exports.rules
   rules:
   - alert: 系统负载
-    expr: node_load1>0.85
-    for: 15s
+    expr: node_load1>1
+    for: 10s
     labels:
       severity: Warning
+      level: 3
     annotations:
       summary: "节点 {{ $labels.instance }} 负载预警"
       description: "节点 {{ $labels.instance }} 负载已达 {{ $value }} ，此信息为预警信息"

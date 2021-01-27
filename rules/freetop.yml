@@ -6,6 +6,7 @@ groups:
     for: 15s
     labels:
       severity: Warning
+      level: 3
     annotations:
       summary: "{{ $labels.instance }} 当前内存使用率已高于85%"
       description: "{{ $labels.instance }} 应用内存使用率过高，当前使用率为 {{ $value }}，请相关运维人员介入"
