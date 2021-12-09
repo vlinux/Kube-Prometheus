@@ -1,0 +1,34 @@
+groups:
+- name: exports.rules
+  rules:
+  - alert: SSL证书将在30天内到期
+    expr: probe_ssl_earliest_cert_expiry - time() < 86400 * 30
+    for: 1d
+    labels:
+      severity: warning
+      level: 4
+    annotations:
+      summary: "Blackbox SSL 证书即将到期 < 30天 (instance {{ $labels.instance }})"
+      description: "SSL 证书将在 30 天后到期\n 探测值 = {{ $value }}\n  标签 = {{ $labels }}"
+      recoverymessage: "实例 {{ $labels.instance }} 已恢复正常监控"
+  - alert: SSL证书将在3天内到期
+    expr: probe_ssl_earliest_cert_expiry - time() < 86400 * 3
+    for: 5m
+    labels:
+      severity: critical
+      level: 4
+    annotations:
+      summary: "Blackbox SSL 证书即将到期 < 3天 (instance {{ $labels.instance }})"
+      description: "SSL 证书将在 3 天后到期\n 探测值 = {{ $value }}\n  标签 = {{ $labels }}"
+      recoverymessage: "实例 {{ $labels.instance }} 已恢复正常监控"
+  - alert: SSL证书已过期
+    expr: probe_ssl_earliest_cert_expiry - time() <= 0
+    for: 5m
+    labels:
+      severity: critical
+      level: 4
+    annotations:
+      summary: "Blackbox SSL 已过期  (instance {{ $labels.instance }})"
+      description: "SSL 证书已过期\n 探测值 = {{ $value }}\n  标签 = {{ $labels }}"
+      recoverymessage: "实例 {{ $labels.instance }} 已恢复正常监控"
+

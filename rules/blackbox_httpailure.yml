@@ -1,0 +1,14 @@
+groups:
+- name: exports.rules
+  rules:
+  - alert: 黑盒HTTP监测失败
+    expr: avg_over_time(probe_duration_seconds[1m]) > 1
+    for: 0m
+    labels:
+      severity: critical
+      level: 4
+    annotations:
+      summary: "黑盒探测 HTTP 失败 (instance {{ $labels.instance }})"
+      description: "HTTP服务状态码不为200-399\n 探测值 = {{ $value }}\n  标签 = {{ $labels }}"
+      recoverymessage: "实例 {{ $labels.instance }} 已恢复正常监控"
+

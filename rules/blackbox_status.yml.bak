@@ -1,0 +1,14 @@
+groups:
+- name: exports.rules
+  rules:
+  - alert: 黑盒监控状态
+    expr: probe_success == 0
+    for: 0m
+    labels:
+      severity: critical
+      level: 4
+    annotations:
+      summary: "黑盒探测失败(instance {{ $labels.instance }})"
+      description: "探测失败\n 探测值 = {{ $value }}\n  标签 = {{ $labels }}"
+      recoverymessage: "实例 {{ $labels.instance }} 已恢复正常监控"
+

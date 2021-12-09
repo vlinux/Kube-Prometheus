@@ -1,0 +1,24 @@
+groups:
+- name: exports.rules
+  rules:
+  - alert: 黑盒慢探针
+    expr: avg_over_time(probe_duration_seconds[1m]) > 1
+    for: 1m
+    labels:
+      severity: warnning
+      level: 3
+    annotations:
+      summary: "黑盒慢探针发出预警 (instance {{ $labels.instance }})"
+      description: "黑盒探测用了 1 多秒才完成\n 探测值 = {{ $value }}\n  标签 = {{ $labels }}"
+      recoverymessage: "实例 {{ $labels.instance }} 已恢复正常监控"
+  - alert: 黑盒HTTP慢探针
+    expr: avg_over_time(probe_http_duration_seconds[1m]) > 1
+    for: 1m
+    labels:
+      severity: warnning
+      level: 3
+    annotations:
+      summary: "黑盒HTTP慢探针发出预警 (instance {{ $labels.instance }})"
+      description: "黑盒HTTP探测用了 1 多秒才完成\n 探测值 = {{ $value }}\n  标签 = {{ $labels }}"
+      recoverymessage: "实例 {{ $labels.instance }} 已恢复正常监控"
+
